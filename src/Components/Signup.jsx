@@ -1,5 +1,6 @@
 import React from 'react'
 import SUImg from '../assets/Signup.png'
+import google_icon from "../assets/google_icon.svg"
 
 export default function Signup() {
   return (
@@ -24,6 +25,10 @@ export default function Signup() {
                     <input className='rounded-lg bg-gray-300 mt-2 p-2 text-black focus:border-blue-500 focus:bg-gray-300 focus:text-black focus:outline-none' type="password" placeholder='Enter password'/>
                 </div>
                 <button className='w-full my-5 py-2 bg-[#415FEB] shadow-lg shadow-[#415FEB]/50 hover:shadow-[#415FEB]/40 text-white font-semibold rounded-lg'>Create Account</button>
+                <div className='text-white py-2 text-center'>
+                    <p>or</p>
+                    <button className='flex items-center w-full my-5 py-2 bg-[#390DA0] border-2 border-white text-white font-semibold rounded-lg justify-center'><img src={google_icon} className='pr-2'/>Sign Up with Google</button>
+                </div>
             </form>
         </div>   
     </div>
