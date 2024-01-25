@@ -1,5 +1,6 @@
 import React from 'react'
 import loginImg from '../assets/Login.png'
+import { Link } from 'react-router-dom'
 
 export default function Login() {
   return (
@@ -21,9 +22,9 @@ export default function Login() {
                 </div>
                 <div className='flex justify-between text-[#cfbff5] py-2'>
                     <p className='flex items-center'><input className='mr-2' type='checkbox'/>Remember Me</p>
-                    <p className='text-gray-200 font-semibold'>Forget Password</p>
+                    <Link to="/Forget_Password"><p className='text-gray-200 font-semibold'>Forget Password</p></Link>
                 </div>
-                <button className='w-full my-5 py-2 bg-[#415FEB] shadow-lg shadow-[#415FEB]/50 hover:shadow-[#415FEB]/40 text-white font-semibold rounded-lg'>Sign In</button>
+                <button className='w-full my-5 py-2 bg-[#415FEB] shadow-lg shadow-[#415FEB]/50 hover:shadow-[#415FEB]/40 text-white font-semibold rounded-lg'>Log In</button>
             </form>
         </div>   
     </div>
