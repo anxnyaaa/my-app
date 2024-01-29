@@ -1,10 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SUImg from '../assets/Signup.png'
 import google_icon from "../assets/google_icon.svg"
 import { Link } from 'react-router-dom';
 
-export default function Signup() {
-  return (
+import validator from 'validator'
+
+function Signup() {
+
+    const [errorMessage, setErrorMessage] = useState('') 
+  
+    const validate = (value) => {
+        const options = {
+          minLength: 8,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+        };
+
+        if (value.trim() === '') {
+            setErrorMessage('');
+        } else if (validator.isStrongPassword(value, options)) { 
+            setErrorMessage('Strong Password') ;
+        } else { 
+            let errorMsg = '';
+            if (value.length < options.minLength) {
+                errorMsg += 'Length cannot be less than 8 characters. ';
+            }
+            if (!/[a-z]/.test(value)) {
+                errorMsg += 'Password must have at least 1 lowercase letter. ';
+            }
+            if (!/[A-Z]/.test(value)) {
+                errorMsg += 'Password must have at least 1 uppercase letter. ';
+            }
+            if (!/\d/.test(value)) {
+                errorMsg += 'Password must have at least 1 digit. ';
+            }
+            if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                errorMsg += 'Password must have at least 1 special character. ';
+            }
+
+            setErrorMessage(errorMsg.trim());
+        } 
+    }; 
+
+    return (
         <div className='grid grid-cols-1 sm:grid-cols-2 h-screen w-full'>
             <div className='hidden sm:block'>
                 <img className='w-0.9 h-0.9 object-cover align-middle' src={SUImg} alt=''/>
@@ -21,10 +61,20 @@ export default function Signup() {
                         <label>Enter Email</label>
                         <input className='rounded-lg bg-gray-300 mt-2 p-2 text-black focus:border-blue-500 focus:bg-gray-300 focus:text-black focus:outline-none' type="email" placeholder='Enter email'/>
                     </div>
+                    
+                    {/* //initial passport section
                     <div className='flex flex-col text-white py-2'>
                         <label>Enter Password</label>
-                        <input className='rounded-lg bg-gray-300 mt-2 p-2 text-black focus:border-blue-500 focus:bg-gray-300 focus:text-black focus:outline-none' type="password" placeholder='Enter password'/>
-                    </div>
+                        {/*<input className='rounded-lg bg-gray-300 mt-2 p-2 text-black focus:border-blue-500 focus:bg-gray-300 focus:text-black focus:outline-none' type="password" placeholder='Enter password'/>
+                    </div> */}
+
+                    <div className='flex flex-col text-white py-2'>
+                        <label>Enter Password</label>
+                        <input className='rounded-lg bg-gray-300 mt-2 p-2 text-black focus:border-blue-500 focus:bg-gray-300 focus:text-black focus:outline-none' type="text" placeholder='Enter password' onChange={(e) => validate(e.target.value)}></input>
+                        {errorMessage === '' ? null : 
+                            <span className={`mt-1 text-xs ${errorMessage === 'Strong Password' ? 'text-green-500' : 'text-white-500'}`}>{errorMessage}</span>} 
+                    </div> 
+
                     <Link to="/Login"><button className='w-full my-5 py-2 bg-[#415FEB] shadow-lg shadow-[#415FEB]/50 hover:shadow-[#415FEB]/40 text-white font-semibold rounded-lg'>Create Account</button></Link>
                     <div className='text-white py-2 text-center'>
                         <p>or</p>
@@ -35,3 +85,5 @@ export default function Signup() {
         </div>
   )
 }
+
+export default Signup
